@@ -129,8 +129,10 @@ class BinarySearchTree {
 // Write an algo to find the height of a binary search tree. What is the runtime of your algo
 // Big O notation runtime: 
 
-function heightOfBst() {
-  
+function heightOfBst(bst, answer) {
+  // base case: wen we get null on both sides
+  //return answer
+  // return heightOfBst(b)
 }
 
 
