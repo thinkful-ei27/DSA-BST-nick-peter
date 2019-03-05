@@ -25,7 +25,7 @@ class BinarySearchTree {
       // if there is then we recursilely call the insert function 
       if (this.left === null) {
         this.left = new BinarySearchTree(key, value, this);
-        console.log('this.left============',this.left);
+       // console.log('this.left============',this.left);
         
       } else {
         return this.left.insert(key, value);
@@ -127,14 +127,28 @@ class BinarySearchTree {
 
 // Height of a BST
 // Write an algo to find the height of a binary search tree. What is the runtime of your algo
-// Big O notation runtime: 
+// Big O notation runtime: Average/Worst: O(n), we're going through the whole thing
+// Best case O(1): BST has 0 or 1 nodes, highly unlikely
 
-function heightOfBst(bst, answer) {
-  // base case: wen we get null on both sides
-  //return answer
-  // return heightOfBst(b)
+function heightOfBst(bst, answer = 1) {
+  if(bst.key === null){
+    return 0;
+  }
+  // base case: when we get null on both sides
+  if(!bst.left && !bst.right){
+    return answer;
+  }
+  if(bst.left && bst.right){
+    return heightOfBst(bst.left, answer + 1) > heightOfBst(bst.right, answer + 1) ? 
+    heightOfBst(bst.left, answer + 1) : heightOfBst(bst.right, answer + 1);
+  }
+  if(bst.left){
+    return heightOfBst(bst.left, answer + 1)
+  }
+  if(bst.right){
+    return heightOfBst(bst.right, answer + 1)
+  }
 }
-
 
 function main() {
   const BST = new BinarySearchTree();
@@ -146,7 +160,9 @@ function main() {
   BST.insert(2, 2);
   BST.insert(5, 5);
   BST.insert(7, 7);
-  console.log(BST);
+  console.log(heightOfBst(BST));
+  // const empty = new BinarySearchTree();
+  // console.log(heightOfBst(empty));
 }
 
 main();
