@@ -25,7 +25,7 @@ class BinarySearchTree {
       // if there is then we recursilely call the insert function 
       if (this.left === null) {
         this.left = new BinarySearchTree(key, value, this);
-       // console.log('this.left============',this.left);
+        // console.log('this.left============',this.left);
         
       } else {
         return this.left.insert(key, value);
@@ -140,15 +140,57 @@ function heightOfBst(bst, answer = 1) {
   }
   if(bst.left && bst.right){
     return heightOfBst(bst.left, answer + 1) > heightOfBst(bst.right, answer + 1) ? 
-    heightOfBst(bst.left, answer + 1) : heightOfBst(bst.right, answer + 1);
+      heightOfBst(bst.left, answer + 1) : heightOfBst(bst.right, answer + 1);
   }
   if(bst.left){
-    return heightOfBst(bst.left, answer + 1)
+    return heightOfBst(bst.left, answer + 1);
   }
   if(bst.right){
-    return heightOfBst(bst.right, answer + 1)
+    return heightOfBst(bst.right, answer + 1);
   }
 }
+
+
+// Is it a BST?
+// Write an algo to check whether a binary tree is a BST, assuming the tree
+// does not contain duplicates
+// Big O Notation: Best Case O(1) -- there is nothing there or its not a tree
+// Average Case and Worst Case O(n) b/c we have to go throught the whole tree
+
+function isBst(tree) {
+  if (!tree.key) {
+    return false;
+  }
+
+  if (tree.right && tree.left) {
+    isBst(tree.right);
+    isBst(tree.left);
+  }
+  
+  if (tree.right) {
+    // Values to the right are less than root so false
+    if (tree.right.key < tree.key) {
+      return false;
+    } else {
+      return isBst(tree.right);
+    }
+  }
+  if (tree.left) {
+    // Values to the left are greater than root so false
+    if (tree.left.key > tree.key) {
+      return false;
+    } else {
+      return isBst(tree.left);
+    }
+  }
+
+  if (!tree.right && !tree.left) {
+    return true;
+  }
+}
+
+
+
 
 function main() {
   const BST = new BinarySearchTree();
@@ -160,9 +202,14 @@ function main() {
   BST.insert(2, 2);
   BST.insert(5, 5);
   BST.insert(7, 7);
-  console.log(heightOfBst(BST));
+  // console.log(heightOfBst(BST));
   // const empty = new BinarySearchTree();
   // console.log(heightOfBst(empty));
+  // console.log('isBst on BST =====',isBst(BST));
+  // console.log('isBst on 2 =====',isBst(2));
+  // console.log('isBst on empty =====',isBst(empty));
+
+  
 }
 
 main();
