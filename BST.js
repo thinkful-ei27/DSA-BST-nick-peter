@@ -1,5 +1,5 @@
 class BinarySearchTree {
-  constructor(key = null, value = parent, parent = null) {
+  constructor(key = null, value = null, parent = null) {
     this.key = key;
     this.value = value;
     this.parent = parent;
@@ -25,6 +25,8 @@ class BinarySearchTree {
       // if there is then we recursilely call the insert function 
       if (this.left === null) {
         this.left = new BinarySearchTree(key, value, this);
+        console.log('this.left============',this.left);
+        
       } else {
         return this.left.insert(key, value);
       }
@@ -45,17 +47,19 @@ class BinarySearchTree {
     if(this.key === key){
       return this.value;
     } else if(key < this.key && this.left){
-        return this.left.find(key);
-      } 
-      else if (key > this.key && this.right){
-        return this.right.find(key);
-      } else {
-        return 'The key does not exist within the Tree';
-      }
+      return this.left.find(key);
+    } 
+    else if (key > this.key && this.right){
+      return this.right.find(key);
+    } else {
+      return 'The key does not exist within the Tree';
+    }
   }
 
   remove(key){
-    //BigO notation:
+    // BigO notation: Best Case: O(1) - the node is the root
+    // Average case: O(log(n)) b/c we are dealing w/ BST. Worst Case O(n): We have a very uneven BST
+    // 
 
     //3 scenarios: No children, 1 child, 2 children
     if(this.key === key){
@@ -77,7 +81,7 @@ class BinarySearchTree {
     }else if (key > this.key && this.right){
       this.right.remove(key);
     } else {
-      return 'The key does not exist within the Tree'
+      return 'The key does not exist within the Tree';
     }
   }
 
@@ -120,3 +124,27 @@ class BinarySearchTree {
   }
   
 }
+
+// Height of a BST
+// Write an algo to find the height of a binary search tree. What is the runtime of your algo
+// Big O notation runtime: 
+
+function heightOfBst() {
+  
+}
+
+
+function main() {
+  const BST = new BinarySearchTree();
+  BST.insert(3, 3);
+  BST.insert(1, 1);
+  BST.insert(4, 4);
+  BST.insert(6, 6);
+  BST.insert(9, 9);
+  BST.insert(2, 2);
+  BST.insert(5, 5);
+  BST.insert(7, 7);
+  console.log(BST);
+}
+
+main();
